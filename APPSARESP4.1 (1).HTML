@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Intensivão SARESP - Matemática 3ª Série | Prof. Irineu & Prof. Eduardo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, 'Segoe UI', 'Poppins', 'Roboto', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(145deg, #f0f9ff 0%, #e6f0fa 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .app-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.85);
+            border-radius: 48px;
+            box-shadow: 0 25px 45px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #003153, #0a4c6e);
+            padding: 24px 32px;
+            color: white;
+            border-bottom: 5px solid #ffb347;
+        }
+
+        .hero h1 {
+            font-size: 1.9rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .hero h1 span {
+            background: #ffb347;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 1rem;
+            color: #1e2f3e;
+        }
+
+        .badge {
+            background: #ffb347;
+            color: #1e3b4a;
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 60px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            margin-top: 12px;
+        }
+
+        .user-info {
+            background: rgba(255,255,255,0.2);
+            border-radius: 40px;
+            padding: 8px 18px;
+            display: inline-block;
+            margin-top: 12px;
+            font-size: 0.9rem;
+        }
+
+        .trocar-usuario {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 5px 12px;
+            border-radius: 30px;
+            margin-left: 12px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: 0.2s;
+        }
+
+        .trocar-usuario:hover {
+            background: #ffb347;
+            color: #003153;
+        }
+
+        .tabs {
+            display: flex;
+            flex-wrap: wrap;
+            background: #ffffffcc;
+            backdrop-filter: blur(4px);
+            border-bottom: 1px solid #cbd5e1;
+            gap: 4px;
+            padding: 12px 20px 0 20px;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 12px 22px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 32px 32px 0 0;
+            cursor: pointer;
+            transition: 0.2s;
+            color: #1e4a6b;
+        }
+
+        .tab-btn.active {
+            background: white;
+            color: #0f5b8c;
+            border-bottom: 3px solid #ffb347;
+        }
+
+        .tab-btn:hover:not(.active) {
+            background: #e2edf7;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 28px 30px;
+            background: white;
+            animation: fade 0.25s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fade {
+            from { opacity: 0; transform: translateY(6px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        .conteudos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+            margin-top: 20px;
+        }
+
+        .card-conteudo {
+            background: linear-gradient(135deg, #ffffff 0%, #fef8ed 100%);
+            border-radius: 32px;
+            padding: 0;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            border: 1px solid #ffe0b5;
+        }
+
+        .card-conteudo:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 35px rgba(0,0,0,0.15);
+            border-color: #ffb347;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #003153, #0f5b8c);
+            padding: 20px;
+            color: white;
+        }
+
+        .card-header h3 {
+            font-size: 1.6rem;
+            margin-bottom: 5px;
+        }
+
+        .card-header .emoji {
+            font-size: 2rem;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-body p {
+            color: #2c3e4e;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .preview {
+            background: #eef3fc;
+            padding: 12px;
+            border-radius: 20px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            margin: 12px 0;
+        }
+
+        .btn-estudar {
+            background: #ffb347;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: bold;
+            color: #1e2f3e;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            transition: 0.2s;
+        }
+
+        .btn-estudar:hover {
+            background: #ff9e1a;
+        }
+
+        .modal-conteudo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .modal-conteudo-content {
+            background: white;
+            border-radius: 48px;
+            max-width: 700px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 32px;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .formula-box {
+            background: #f0f7ff;
+            padding: 15px;
+            border-radius: 20px;
+            margin: 15px 0;
+            font-family: monospace;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+
+        .quiz-area, .sim-card {
+            background: #f1f9fe;
+            border-radius: 36px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .question {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 15px 0;
+        }
+
+        .opt {
+            background: white;
+            padding: 10px 16px;
+            border-radius: 60px;
+            border: 1px solid #cbdbe2;
+            cursor: pointer;
+            transition: 0.1s;
+        }
+
+        .opt.selected {
+            background: #ffecb3;
+            border: 2px solid #ffb347;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 48px;
+            padding: 32px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            text-align: center;
+        }
+
+        .modal-content h3 {
+            color: #003153;
+            margin-bottom: 20px;
+        }
+
+        .turma-group {
+            margin-bottom: 20px;
+        }
+
+        .turma-title {
+            background: #003153;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 30px;
+            margin: 15px 0 10px 0;
+            font-size: 1rem;
+        }
+
+        .usuario-item {
+            padding: 12px 16px;
+            margin: 8px 0;
+            background: #f0f7ff;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: 0.2s;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .usuario-item:hover {
+            background: #ffb347;
+            color: white;
+            transform: scale(1.02);
+        }
+
+        .usuario-nome {
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .usuario-tipo {
+            font-size: 0.7rem;
+            background: #003153;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+        }
+
+        .busca-usuario {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 60px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+
+        /* Área do Professor - Dashboard */
+        .prof-dashboard {
+            background: #f9f3e0;
+            border-radius: 28px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .prof-header {
+            background: linear-gradient(135deg, #003153, #0f5b8c);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-sair {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            padding: 8px 20px;
+            border-radius: 30px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .btn-sair:hover {
+            background: #ffb347;
+            color: #003153;
+        }
+
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #003153, #0f5b8c);
+            color: white;
+            padding: 20px;
+            border-radius: 28px;
+            text-align: center;
+        }
+
+        .stat-card .number {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .filtro-serie {
+            margin: 20px 0;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .filtro-btn {
+            padding: 8px 20px;
+            border-radius: 40px;
+            background: #e0e7ff;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .filtro-btn.active {
+            background: #ffb347;
+            color: #1e2f3e;
+            font-weight: bold;
+        }
+
+        .student-record {
+            background: white;
+            border-radius: 20px;
+            padding: 18px;
+            margin-bottom: 15px;
+            border-left: 8px solid #ffb347;
+            transition: 0.2s;
+        }
+
+        .student-record:hover {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .student-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .student-name {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #003153;
+        }
+
+        .student-serie {
+            background: #003153;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .progress-bar {
+            background: #e9ecef;
+            border-radius: 20px;
+            height: 10px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: #ffb347;
+            height: 100%;
+            border-radius: 20px;
+        }
+
+        .score-high { color: #2d6a4f; font-weight: bold; }
+        .score-medium { color: #e67700; font-weight: bold; }
+        .score-low { color: #c92a2a; font-weight: bold; }
+
+        .btn-acao {
+            background: #ffb347;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        details {
+            margin-top: 12px;
+        }
+
+        summary {
+            cursor: pointer;
+            color: #0f5b8c;
+            font-weight: 500;
+        }
+
+        .respostas-detalhadas {
+            margin-top: 12px;
+            padding-left: 20px;
+            font-size: 0.85rem;
+        }
+
+        .resposta-item {
+            margin: 8px 0;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+
+        .resposta-certa { color: #2d6a4f; font-weight: bold; }
+        .resposta-errada { color: #c92a2a; font-weight: bold; }
+
+        footer {
+            text-align: center;
+            font-size: 0.75rem;
+            padding: 18px;
+            background: #edf4fa;
+            color: #3d5a73;
+        }
+
+        @media (max-width: 650px) {
+            .tab-btn { padding: 8px 14px; font-size: 0.8rem; }
+            .conteudos-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="app-container">
+    <div class="hero">
+        <h1>📐 Intensivão SARESP <span>MATEMÁTICA</span></h1>
+        <p>E. E. Prof. José Sanches Josende – PEI | 3ª Série A, B e C</p>
+        <div class="badge">🎯 7 conteúdos essenciais para o SARESP</div>
+        <div class="user-info" id="userInfoDisplay">
+            👤 Carregando...
+        </div>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-btn active" data-tab="inicio">🏠 Início - Conteúdos</button>
+        <button class="tab-btn" data-tab="quiz">🧠 Quiz Rápido</button>
+        <button class="tab-btn" data-tab="simulado">✏️ Simulado SARESP</button>
+        <button class="tab-btn" data-tab="professor" id="abaProfessorBtn" style="display:none;">👨‍🏫 Painel do Professor</button>
+    </div>
+
+    <div id="inicio" class="tab-content active">
+        <h2 style="color:#003153;">📖 Selecione um conteúdo para estudar</h2>
+        <div class="conteudos-grid" id="conteudosGrid"></div>
+    </div>
+
+    <div id="quiz" class="tab-content">
+        <h2 style="color:#003153;">🧪 Quiz por tópico</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 12px; margin: 20px 0;">
+            <button class="simulado-btn" data-quiz-topic="notacao">Notação Científica</button>
+            <button class="simulado-btn" data-quiz-topic="proporcionalidade">Proporcionalidade</button>
+            <button class="simulado-btn" data-quiz-topic="pa_pg">PA e PG</button>
+            <button class="simulado-btn" data-quiz-topic="eq1grau">Equação 1º Grau</button>
+            <button class="simulado-btn" data-quiz-topic="exponencial">Exponencial</button>
+            <button class="simulado-btn" data-quiz-topic="logaritmo">Logaritmo</button>
+            <button class="simulado-btn" data-quiz-topic="poligonos">Polígonos</button>
+        </div>
+        <div id="quizContainer" class="quiz-area"><div style="text-align:center;">Selecione um tópico acima</div></div>
+    </div>
+
+    <div id="simulado" class="tab-content">
+        <h2 style="color:#003153;">📝 Simulado SARESP (5 questões)</h2>
+        <p>Responda todas as questões e ao final seus dados serão salvos para o professor.</p>
+        <div id="simuladoQuestoes" class="sim-card"></div>
+        <button id="corrigirSimulado" class="simulado-btn" style="margin-top:20px;">✅ Finalizar e salvar resultado</button>
+        <div id="resultadoSimulado" style="margin-top:20px;"></div>
+    </div>
+
+    <div id="professor" class="tab-content">
+        <h2 style="color:#003153;">👨‍🏫 Painel do Professor - Correção de Atividades</h2>
+        <div id="painelProfessor" class="prof-dashboard">
+            <div class="prof-header">
+                <span id="profNomeLogado">👨‍🏫 Professor</span>
+                <button class="btn-sair" onclick="sairModoProfessor()">🚪 Sair do Painel</button>
+            </div>
+            <div class="stats-cards" id="statsCards"></div>
+            <div class="filtro-serie">
+                <button class="filtro-btn active" data-filtro="todas">📊 Todas as turmas</button>
+                <button class="filtro-btn" data-filtro="3ª Série A">📘 3ª Série A</button>
+                <button class="filtro-btn" data-filtro="3ª Série B">📗 3ª Série B</button>
+                <button class="filtro-btn" data-filtro="3ª Série C">📙 3ª Série C</button>
+            </div>
+            <div id="listaAtividadesProf"></div>
+            <div style="display: flex; gap: 15px; justify-content: flex-end; margin-top: 25px;">
+                <button id="exportarDadosProf" class="btn-acao">📎 Exportar Relatório</button>
+                <button id="limparDadosProf" class="btn-acao btn-danger">🗑️ Limpar registros</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>🚀 Preparação intensiva SARESP • Prof. Irineu Marciano & Prof. Eduardo de Matos</footer>
+</div>
+
+<script>
+    // ==================== LISTA DE ALUNOS ====================
+    const alunosSerieA = [
+        "ANA BEATRYS LADICA DA SILVA", "ANA LÍVIA MACEDO ARAUJO", "ANDREI JOSE DA SILVA",
+        "DAFNE DA SILVA BORGES", "DEYVID NUNES PEREIRA", "FELIPE PEREIRA DA SILVA",
+        "GRAZIELLY JANAINA SIQUEIRA", "GUILHERME DA SILVA MONTEIRO", "GUSTAVO SOARES GONÇALVES",
+        "JHEMILY SOUSA LIMA", "JOÃO VITOR PASCOAL MOURA", "JONAS RAMOS VELAME JUNIOR",
+        "JUAN PABLO SOARES TEODORA", "JÚLIA GOMES NOVAES", "KAYLANE SANTOS PACHECO",
+        "LEONARDO DE ALMEIDA TELES", "LIDIANE RICAELI OLIVEIRA DA SILVA", "LOHANY MOREIRA DA SILVA",
+        "LUARA KELLY SOUZA VENZEL", "LUDMILA BATISTA DA SILVA", "MARIA EDUARDA DOS SANTOS RODRIGUES",
+        "MARIANA RIBEIRO LIMA RODRIGUES", "MIGUEL CAMILO MARTINS", "MÔNICA DE FREITAS CONCEICAO",
+        "NAYARA VITÓRIA FERREIRA DOS SANTOS", "PAULO HENRIQUE VIEIRA GUSMÃO", "PIETRO JUNIOR ALVES DINIZ",
+        "RAFAEL LOPES FARIA DA SILVA", "RODRIGO ALVES FERNANDES", "SAMUEL DE OLIVEIRA ASSIS",
+        "SOPHIA VITÓRIA OLIVEIRA DA SILVEIRA"
+    ];
+
+    const alunosSerieB = [
+        "ADRIELLY VITÓRIA DA SILVA SOUZA", "ALEXANDRE VILAS BOAS MELO DE SANTANA",
+        "ANA JÚLIA DA SILVA MACHADO", "ANDREY CHRISTIAN RODRIGUES SILVA", "BRYAN GABRIEL SOUZA PEREIRA",
+        "CASSYE DE PAULA AZEVEDO", "GABRIEL BESERRA LIMA NUNES", "GIOVANNA VIEIRA DA SILVA PAZ",
+        "ISABELA FERREIRA", "JHONNATAN HENRIQUE DOS SANTOS COELHO", "JÚLIO SANTANA DA CUNHA",
+        "KAUAN RODRIGO PEREIRA RODRIGUES DA CUNHA", "KAWAN VEIGA CACERES LOUREIRO",
+        "LINDSAY CRISTINA DO VALLE", "LUIZ HENRIQUE DE PAIVA SOUZA SANTOS",
+        "MARCELLA MENESES PONCIANO DOS SANTOS", "MATHEUS DE MOURA QUERINO",
+        "NICOLLY VITÓRIA MACHADO DA SILVA", "PEDRO HENRIQUE DUARTE DA CRUZ",
+        "RAFAELLA CRISTINE SOUZA CASSIANO", "RAFAELLA VITÓRIA DA COSTA", "REBEKA LEOTERIO GUIMARÃES",
+        "STEPHANY ROSA DA SILVA", "VICTOR HUGO VILAS DA CRUZ", "VITÓRIA MARQUES DAMASCENO"
+    ];
+
+    const alunosSerieC = [
+        "CARLOS EDUARDO DE SOUZA", "GABRIELLY DE OLIVEIRA SANTOS", "GIOVANA TEIXEIRA LUCIANO",
+        "KAUANY DE CARVALHO", "KAWAN VEIGA CACERES LOUREIRO", "LUCIANO MARCOS SILVA SANTOS DE OLIVEIRA",
+        "QUÉZIA ESPERANCA GOMES PEREIRA", "TAUANE VITÓRIA DA SILVA", "VIVIANE APARECIDA SILVA GABRIEL PRADO",
+        "EDUARDO GOMES PEDROSO", "PIETRO FABIAN BASTOS DO NASCIMENTO", "GUSTAVO ALEXANDRE SANTOS DA SILVA",
+        "MATEUS ANTONIO SILVA SANTOS"
+    ];
+
+    const alunos = [
+        ...alunosSerieA.map(nome => ({ nome, serie: "3ª Série A", tipo: "aluno" })),
+        ...alunosSerieB.map(nome => ({ nome, serie: "3ª Série B", tipo: "aluno" })),
+        ...alunosSerieC.map(nome => ({ nome, serie: "3ª Série C", tipo: "aluno" }))
+    ];
+
+    // ==================== PROFESSORES ====================
+    const professores = [
+        { nome: "Prof. Irineu Marciano", tipo: "professor", professorId: "irineu", senha: "irineu2026", disciplina: "Matemática" },
+        { nome: "Prof. Eduardo de Matos", tipo: "professor", professorId: "eduardo", senha: "eduardo2026", disciplina: "Matemática" }
+    ];
+
+    // Lista completa de usuários (alunos + professores)
+    const usuarios = [...alunos, ...professores];
+
+    // Conteúdos
+    const conteudos = [
+        { id: "notacao", titulo: "Notação Científica", emoji: "🔬", descricao: "Forma de escrever números muito grandes ou pequenos usando potência de 10.", teoria: "a × 10ⁿ, onde 1 ≤ |a| < 10.", formulas: ["a × 10ⁿ"], exemplos: ["150.000.000 = 1,5 × 10⁸"] },
+        { id: "proporcionalidade", titulo: "Proporcionalidade", emoji: "📊", descricao: "Relação entre grandezas direta ou inversamente proporcionais.", teoria: "Direta: y = k·x | Inversa: y = k/x", formulas: ["Direta: y₁/x₁ = y₂/x₂"], exemplos: ["3 pedreiros → 120m² em 4d"] },
+        { id: "pa_pg", titulo: "Progressões", emoji: "🔢", descricao: "PA: soma constante, PG: multiplicação constante.", teoria: "PA: aₙ = a₁+(n-1)r | PG: aₙ = a₁·qⁿ⁻¹", formulas: ["PA: aₙ = a₁+(n-1)r", "PG: aₙ = a₁·qⁿ⁻¹"], exemplos: ["PA: 5,9,13..."] },
+        { id: "eq1grau", titulo: "Equação 1º Grau", emoji: "✖️", descricao: "Equações ax + b = 0", teoria: "Isolar a incógnita x", formulas: ["x = -b/a"], exemplos: ["2(x+3)=14 → x=4"] },
+        { id: "exponencial", titulo: "Função Exponencial", emoji: "📈", descricao: "f(x) = aˣ", teoria: "Crescimento/decrescimento", formulas: ["f(x)=aˣ"], exemplos: ["2³=8"] },
+        { id: "logaritmo", titulo: "Logaritmo", emoji: "📐", descricao: "logₐ b = c ↔ aᶜ = b", teoria: "Inverso da exponencial", formulas: ["logₐ b = c"], exemplos: ["log₂8=3"] },
+        { id: "poligonos", titulo: "Polígonos", emoji: "🔷", descricao: "Ângulos internos", teoria: "Soma = (n-2)·180°", formulas: ["(n-2)·180°"], exemplos: ["Hexágono: 720°"] }
+    ];
+
+    // Banco de questões
+    const questionBank = {
+        notacao: [{q:"149.600.000 km em notação científica?", opts:["1,496×10⁸","14,96×10⁷","1,496×10⁹","1496×10⁵"], correct:0, expl:"1,496×10⁸"},{q:"0,00000042 em notação científica?", opts:["4,2×10⁻⁷","42×10⁻⁸","4,2×10⁻⁶","0,42×10⁻⁶"], correct:0, expl:"4,2×10⁻⁷"}],
+        proporcionalidade:[{q:"5 máquinas → 1200 peças/8h. 3 máquinas/12h = ?", opts:["1080","900","720","960"], correct:0, expl:"1080"},{q:"Torneira A 6h, B 4h. Juntas?", opts:["2h24min","2h30min","2h","3h"], correct:0, expl:"2,4h"}],
+        pa_pg:[{q:"PA: a1=7, r=4. 10º termo?", opts:["43","39","47","35"], correct:0, expl:"43"},{q:"PG: a1=5, q=3. 5º termo?", opts:["405","135","1215","45"], correct:0, expl:"405"}],
+        eq1grau:[{q:"3(x-2)+5=2x+4", opts:["x=5","x=3","x=7","x=1"], correct:0, expl:"x=5"},{q:"2x/3 - 1 = x/2 + 2", opts:["18","12","9","15"], correct:0, expl:"x=18"}],
+        exponencial:[{q:"Bactérias: 500 → dobra/h. Após 4h?", opts:["8000","4000","2000","16000"], correct:0, expl:"8000"},{q:"f(x)=3ˣ, f(3)=?", opts:["27","9","6","12"], correct:0, expl:"27"}],
+        logaritmo:[{q:"log₃ 81 = ?", opts:["4","3","5","2"], correct:0, expl:"3⁴=81"},{q:"log 2≈0,301, log 3≈0,477, log 12 ≈?", opts:["1,079","0,778","1,204","0,903"], correct:0, expl:"1,079"}],
+        poligonos:[{q:"Qual NÃO pavimenta o plano?", opts:["Pentágono","Triângulo","Quadrado","Hexágono"], correct:0, expl:"Pentágono"},{q:"Soma ângulos internos octógono?", opts:["1080°","720°","900°","1260°"], correct:0, expl:"1080°"}]
+    };
+
+    const simuladoQuestoes = [
+        {q:"0,00000042 em notação científica:", opts:["4,2×10⁻⁷","42×10⁻⁸","4,2×10⁻⁶","0,42×10⁻⁶"], correct:0, expl:"4,2×10⁻⁷"},
+        {q:"PG: a1=2, q=3. Soma dos 4 primeiros termos:", opts:["80","60","54","242"], correct:0, expl:"80"},
+        {q:"4x-7=2x+15 → x=?", opts:["11","8","22","10"], correct:0, expl:"11"},
+        {q:"log₁₀ x = 2 → x=?", opts:["100","20","200","10²"], correct:0, expl:"100"},
+        {q:"Crescimento 5% ao ano, 10000 hab. após 3 anos?", opts:["11576","11000","12000","11500"], correct:0, expl:"11576"}
+    ];
+
+    let currentUser = null;
+    let dadosAlunos = [];
+    let quizState = { topic: null, questions: [], answers: [], currentIndex: 0 };
+    let filtroAtualProf = "todas";
+
+    function carregarDados() { const saved = localStorage.getItem("saresp_dados_alunos"); if(saved) dadosAlunos = JSON.parse(saved); }
+    function salvarDados() { localStorage.setItem("saresp_dados_alunos", JSON.stringify(dadosAlunos)); }
+
+    // Seleção de Usuário (Aluno ou Professor)
+    function exibirSelecaoUsuario() {
+        return new Promise((resolve) => {
+            const modalDiv = document.createElement("div");
+            modalDiv.className = "modal";
+            modalDiv.innerHTML = `
+                <div class="modal-content">
+                    <h3>🎓 Selecione seu usuário</h3>
+                    <input type="text" id="buscaUsuario" class="busca-usuario" placeholder="🔍 Digite seu nome para buscar...">
+                    <div id="listaUsuariosModal" style="max-height: 450px; overflow-y: auto;"></div>
+                </div>
+            `;
+            document.body.appendChild(modalDiv);
+            
+            function renderizarLista(busca = "") {
+                const filtrados = usuarios.filter(u => 
+                    u.nome.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').includes(busca.toLowerCase())
+                );
+                const container = document.getElementById("listaUsuariosModal");
+                if(filtrados.length === 0) { container.innerHTML = "<p>Nenhum usuário encontrado</p>"; return; }
+                
+                const alunosFiltrados = filtrados.filter(u => u.tipo === "aluno");
+                const professoresFiltrados = filtrados.filter(u => u.tipo === "professor");
+                
+                let html = "";
+                if(professoresFiltrados.length > 0) {
+                    html += `<div class="turma-title">👨‍🏫 Professores</div>`;
+                    html += professoresFiltrados.map(p => `<div class="usuario-item" data-nome="${p.nome.replace(/"/g, '&quot;')}" data-tipo="professor" data-profid="${p.professorId}">
+                        <span class="usuario-nome">${p.nome}</span>
+                        <span class="usuario-tipo">Professor</span>
+                    </div>`).join('');
+                }
+                
+                if(alunosFiltrados.length > 0) {
+                    const grupos = { "3ª Série A": [], "3ª Série B": [], "3ª Série C": [] };
+                    alunosFiltrados.forEach(a => { if(grupos[a.serie]) grupos[a.serie].push(a); });
+                    
+                    for(const [serie, lista] of Object.entries(grupos)) {
+                        if(lista.length > 0) {
+                            const emoji = serie === "3ª Série A" ? "📘" : (serie === "3ª Série B" ? "📗" : "📙");
+                            html += `<div class="turma-title">${emoji} ${serie} (${lista.length} alunos)</div>`;
+                            html += lista.map(a => `<div class="usuario-item" data-nome="${a.nome.replace(/"/g, '&quot;')}" data-serie="${a.serie}" data-tipo="aluno">
+                                <span class="usuario-nome">${a.nome}</span>
+                                <span class="usuario-tipo">${a.serie}</span>
+                            </div>`).join('');
+                        }
+                    }
+                }
+                container.innerHTML = html;
+                
+                document.querySelectorAll(".usuario-item").forEach(el => {
+                    el.addEventListener("click", () => {
+                        const tipo = el.dataset.tipo;
+                        if(tipo === "professor") {
+                            const profId = el.dataset.profid;
+                            const professor = professores.find(p => p.professorId === profId);
+                            if(professor) {
+                                const senha = prompt(`🔐 Digite a senha do ${professor.nome}:`);
+                                if(senha === professor.senha) {
+                                    currentUser = { nome: professor.nome, tipo: "professor", professorId: professor.professorId };
+                                    document.getElementById("userInfoDisplay").innerHTML = `👨‍🏫 ${currentUser.nome} <span class="trocar-usuario" id="trocarUsuarioBtn">🔄 Trocar</span>`;
+                                    document.getElementById("abaProfessorBtn").style.display = "inline-block";
+                                    modalDiv.remove();
+                                    document.getElementById("trocarUsuarioBtn")?.addEventListener("click", () => exibirSelecaoUsuario());
+                                    resolve(true);
+                                } else {
+                                    alert("❌ Senha incorreta! Acesso negado.");
+                                }
+                            }
+                        } else {
+                            currentUser = { nome: el.dataset.nome, serie: el.dataset.serie, tipo: "aluno" };
+                            document.getElementById("userInfoDisplay").innerHTML = `👤 ${currentUser.nome} | ${currentUser.serie} <span class="trocar-usuario" id="trocarUsuarioBtn">🔄 Trocar</span>`;
+                            document.getElementById("abaProfessorBtn").style.display = "none";
+                            modalDiv.remove();
+                            document.getElementById("trocarUsuarioBtn")?.addEventListener("click", () => exibirSelecaoUsuario());
+                            resolve(true);
+                        }
+                    });
+                });
+            }
+            document.getElementById("buscaUsuario").addEventListener("input", (e) => renderizarLista(e.target.value));
+            renderizarLista();
+        });
+    }
+
+    // Quiz
+    function loadQuizTopic(topicId) {
+        if(!currentUser || currentUser.tipo !== "aluno") { alert("Apenas alunos podem acessar o quiz!"); return; }
+        const questions = questionBank[topicId];
+        if(!questions) return;
+        quizState = { topic: topicId, questions: [...questions], answers: new Array(questions.length).fill(null), currentIndex: 0 };
+        renderQuizQuestion();
+    }
+
+    function renderQuizQuestion() {
+        const container = document.getElementById("quizContainer");
+        const qData = quizState.questions[quizState.currentIndex];
+        const selected = quizState.answers[quizState.currentIndex];
+        let optsHtml = "";
+        qData.opts.forEach((opt, idx) => { optsHtml += `<div class="opt ${selected===idx ? 'selected':''}" data-opt="${idx}">${String.fromCharCode(65+idx)}. ${opt}</div>`; });
+        container.innerHTML = `<div class="question">📌 ${qData.q}</div><div class="options">${optsHtml}</div>
+            <div style="display:flex; justify-content:space-between; margin-top:15px;"><button id="quizPrevBtn" ${quizState.currentIndex===0?'disabled':''}>◀ Anterior</button>
+            <span>${quizState.currentIndex+1}/${quizState.questions.length}</span><button id="quizNextBtn">Próximo ▶</button></div>
+            <button id="quizFinishBtn" style="margin-top:15px;" class="simulado-btn">🏆 Ver Resultado</button>`;
+        document.querySelectorAll(".opt").forEach(el => {
+            el.addEventListener("click", () => { quizState.answers[quizState.currentIndex] = parseInt(el.dataset.opt); renderQuizQuestion(); });
+        });
+        document.getElementById("quizPrevBtn")?.addEventListener("click", () => { if(quizState.currentIndex>0) { quizState.currentIndex--; renderQuizQuestion(); } });
+        document.getElementById("quizNextBtn")?.addEventListener("click", () => { if(quizState.currentIndex < quizState.questions.length-1) { quizState.currentIndex++; renderQuizQuestion(); } else { finalizarQuiz(); } });
+        document.getElementById("quizFinishBtn")?.addEventListener("click", () => finalizarQuiz(true));
+    }
+
+    function finalizarQuiz(forcar=false) {
+        const allAnswered = quizState.answers.every(a => a !== null);
+        if(allAnswered || forcar) {
+            let acertos = 0;
+            for(let i=0;i<quizState.questions.length;i++) if(quizState.answers[i] === quizState.questions[i].correct) acertos++;
+            const container = document.getElementById("quizContainer");
+            container.innerHTML = `<div class="quiz-area"><h3>✅ Resultado: ${acertos}/${quizState.questions.length}</h3><button id="restartQuiz" class="simulado-btn">🔁 Refazer</button><button id="backTopics" class="simulado-btn">◀ Voltar</button></div>`;
+            document.getElementById("restartQuiz")?.addEventListener("click", () => loadQuizTopic(quizState.topic));
+            document.getElementById("backTopics")?.addEventListener("click", () => { document.getElementById("quizContainer").innerHTML = `<div style="text-align:center;">Selecione um tópico</div>`; quizState.topic = null; });
+        } else alert("Responda todas as questões!");
+    }
+
+    // Simulado
+    function renderSimulado() {
+        const container = document.getElementById("simuladoQuestoes");
+        let html = "";
+        simuladoQuestoes.forEach((q, idx) => {
+            html += `<div style="margin-bottom:28px; background:#FEF5E7; border-radius:24px; padding:16px;"><p><strong>${idx+1}.</strong> ${q.q}</p>`;
+            q.opts.forEach((opt, optIdx) => { html += `<label style="display:block; margin:6px 0;"><input type="radio" name="simQ${idx}" value="${optIdx}"> ${String.fromCharCode(65+optIdx)}. ${opt}</label>`; });
+            html += `</div>`;
+        });
+        container.innerHTML = html;
+    }
+
+    function salvarResultadoSimulado(acertos, total, detalhes) {
+        if(!currentUser || currentUser.tipo !== "aluno") { alert("Apenas alunos podem realizar o simulado!"); return false; }
+        dadosAlunos.unshift({ nome: currentUser.nome, serie: currentUser.serie, data: new Date().toLocaleString(), acertos, total, respostas: detalhes });
+        salvarDados();
+        alert(`✅ Resultado salvo! ${currentUser.nome}, você acertou ${acertos}/${total}.`);
+        return true;
+    }
+
+    function corrigirSimulado() {
+        if(!currentUser || currentUser.tipo !== "aluno") { alert("Apenas alunos podem realizar o simulado!"); return; }
+        let acertos = 0, detalhes = [];
+        for(let i=0;i<simuladoQuestoes.length;i++) {
+            const selected = document.querySelector(`input[name="simQ${i}"]:checked`);
+            if(selected) {
+                const val = parseInt(selected.value);
+                const isCorrect = (val === simuladoQuestoes[i].correct);
+                if(isCorrect) acertos++;
+                detalhes.push({ pergunta: simuladoQuestoes[i].q, escolha: simuladoQuestoes[i].opts[val], correta: simuladoQuestoes[i].opts[simuladoQuestoes[i].correct], acertou: isCorrect });
+            } else detalhes.push({ pergunta: simuladoQuestoes[i].q, escolha: "Não respondida", correta: simuladoQuestoes[i].opts[simuladoQuestoes[i].correct], acertou: false });
+        }
+        document.getElementById("resultadoSimulado").innerHTML = `<div style="background:#e0f2e9; padding:16px; border-radius:28px;"><strong>Acertos: ${acertos}/${simuladoQuestoes.length}</strong><br>✅ Registrado!</div>`;
+        salvarResultadoSimulado(acertos, simuladoQuestoes.length, detalhes);
+    }
+
+    // Painel do Professor
+    function mostrarPainelProfessor() {
+        const filtrados = dadosAlunos.filter(a => filtroAtualProf === "todas" || a.serie === filtroAtualProf);
+        
+        const totalAtividades = filtrados.length;
+        const totalAcertos = filtrados.reduce((sum, a) => sum + a.acertos, 0);
+        const totalQuestoes = filtrados.reduce((sum, a) => sum + a.total, 0);
+        const mediaPercentual = totalQuestoes > 0 ? (totalAcertos / totalQuestoes * 100).toFixed(1) : 0;
+        
+        document.getElementById("statsCards").innerHTML = `
+            <div class="stat-card"><div class="number">${totalAtividades}</div><div class="label">Atividades</div></div>
+            <div class="stat-card"><div class="number">${mediaPercentual}%</div><div class="label">Média</div></div>
+            <div class="stat-card"><div class="number">${dadosAlunos.length}</div><div class="label">Total Registros</div></div>
+        `;
+        
+        const listaDiv = document.getElementById("listaAtividadesProf");
+        if(filtrados.length === 0) {
+            listaDiv.innerHTML = "<p style='text-align:center; padding:40px;'>Nenhuma atividade realizada ainda.</p>";
+        } else {
+            listaDiv.innerHTML = filtrados.map((al, idx) => {
+                const percentual = (al.acertos / al.total * 100);
+                let scoreClass = "score-high";
+                if(percentual < 60) scoreClass = "score-low";
+                else if(percentual < 80) scoreClass = "score-medium";
+                
+                return `<div class="student-record">
+                    <div class="student-header">
+                        <span class="student-name">${al.nome}</span>
+                        <span class="student-serie">${al.serie}</span>
+                    </div>
+                    <div class="student-date">📅 ${al.data}</div>
+                    <div class="progress-bar"><div class="progress-fill" style="width: ${percentual}%"></div></div>
+                    <div class="student-score ${scoreClass}">🎯 ${al.acertos}/${al.total} acertos (${percentual.toFixed(1)}%)</div>
+                    <details>
+                        <summary>📋 Ver respostas detalhadas para correção</summary>
+                        <div class="respostas-detalhadas">
+                            ${al.respostas.map((r, i) => `<div class="resposta-item">
+                                <strong>${i+1}.</strong> ${r.pergunta}<br>
+                                ➜ Resposta: <strong>${r.escolha}</strong><br>
+                                ${r.acertou ? '<span class="resposta-certa">✅ Correta!</span>' : `<span class="resposta-errada">❌ Incorreta. Correta: ${r.correta}</span>`}
+                            </div>`).join('')}
+                        </div>
+                    </details>
+                    <button class="btn-acao" onclick="removerRegistroProf(${dadosAlunos.findIndex(a => a === al)})">🗑️ Remover</button>
+                </div>`;
+            }).join('');
+        }
+    }
+
+    window.removerRegistroProf = (index) => {
+        if(confirm("Remover este registro de atividade?")) {
+            dadosAlunos.splice(index, 1);
+            salvarDados();
+            mostrarPainelProfessor();
+        }
+    };
+
+    function exportarDadosProf() {
+        if(dadosAlunos.length === 0) { alert("Não há dados para exportar!"); return; }
+        let csv = "\uFEFFNome,Serie,Data,Acertos,Total,Percentual,Detalhes\n";
+        dadosAlunos.forEach(al => {
+            const percentual = (al.acertos / al.total * 100).toFixed(1);
+            const detalhes = al.respostas.map(r => `${r.pergunta}|${r.escolha}|${r.acertou ? "Acertou" : "Errou"}`).join("; ");
+            csv += `"${al.nome}",${al.serie},${al.data},${al.acertos},${al.total},${percentual}%,"${detalhes}"\n`;
+        });
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = `relatorio_saresp_${new Date().toLocaleDateString()}.csv`;
+        link.click();
+        alert("Relatório exportado com sucesso!");
+    }
+
+    function sairModoProfessor() {
+        currentUser = null;
+        document.getElementById("userInfoDisplay").innerHTML = "👤 Clique para selecionar usuário";
+        document.getElementById("abaProfessorBtn").style.display = "none";
+        document.querySelector(".tab-btn[data-tab='inicio']").click();
+        exibirSelecaoUsuario();
+    }
+
+    function abrirModalConteudo(conteudo) {
+        const modal = document.createElement("div");
+        modal.className = "modal-conteudo";
+        modal.innerHTML = `
+            <div class="modal-conteudo-content">
+                <span class="close-modal">&times;</span>
+                <h2>${conteudo.emoji} ${conteudo.titulo}</h2>
+                <p>${conteudo.descricao}</p>
+                <h3>📖 Teoria</h3><p>${conteudo.teoria}</p>
+                <h3>📐 Fórmulas</h3>${conteudo.formulas.map(f => `<div class="formula-box">${f}</div>`).join('')}
+                <h3>💡 Exemplos</h3>${conteudo.exemplos.map(e => `<div class="preview">📌 ${e}</div>`).join('')}
+                <button class="btn-estudar" id="praticarBtn">🎯 Praticar no Quiz</button>
+            </div>
+        `;
+        document.body.appendChild(modal);
+        modal.querySelector(".close-modal").onclick = () => modal.remove();
+        modal.querySelector("#praticarBtn").onclick = () => {
+            modal.remove();
+            document.querySelector(".tab-btn[data-tab='quiz']").click();
+            setTimeout(() => loadQuizTopic(conteudo.id), 100);
+        };
+    }
+
+    function renderizarConteudos() {
+        const grid = document.getElementById("conteudosGrid");
+        grid.innerHTML = conteudos.map(c => `
+            <div class="card-conteudo" data-id="${c.id}">
+                <div class="card-header"><span class="emoji">${c.emoji}</span><h3>${c.titulo}</h3></div>
+                <div class="card-body"><p>${c.descricao}</p><div class="preview">${c.exemplos[0]}</div><button class="btn-estudar">🔍 Estudar</button></div>
+            </div>
+        `).join('');
+        document.querySelectorAll(".card-conteudo").forEach(card => {
+            card.addEventListener("click", () => { const c = conteudos.find(c => c.id === card.dataset.id); if(c) abrirModalConteudo(c); });
+        });
+    }
+
+    // Inicialização
+    window.onload = async () => {
+        carregarDados();
+        await exibirSelecaoUsuario();
+        renderizarConteudos();
+        renderSimulado();
+
+        document.querySelectorAll(".tab-btn").forEach(btn => {
+            btn.addEventListener("click", () => {
+                if(btn.dataset.tab === "professor" && (!currentUser || currentUser.tipo !== "professor")) {
+                    alert("Apenas professores podem acessar esta área!");
+                    return;
+                }
+                document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+                btn.classList.add("active");
+                document.querySelectorAll(".tab-content").forEach(c=>c.classList.remove("active"));
+                document.getElementById(btn.dataset.tab).classList.add("active");
+                if(btn.dataset.tab === "simulado") renderSimulado();
+                if(btn.dataset.tab === "professor" && currentUser?.tipo === "professor") mostrarPainelProfessor();
+            });
+        });
+
+        document.querySelectorAll("[data-quiz-topic]").forEach(btn => {
+            btn.addEventListener("click", () => { 
+                if(!currentUser || currentUser.tipo !== "aluno") { alert("Apenas alunos podem acessar o quiz!"); return; }
+                document.querySelector(".tab-btn[data-tab='quiz']").click(); 
+                loadQuizTopic(btn.dataset.quizTopic); 
+            });
+        });
+        document.getElementById("corrigirSimulado")?.addEventListener("click", corrigirSimulado);
+        
+        document.getElementById("exportarDadosProf")?.addEventListener("click", exportarDadosProf);
+        document.getElementById("limparDadosProf")?.addEventListener("click", () => {
+            if(confirm("⚠️ ATENÇÃO: Isso apagará TODOS os registros. Tem certeza?")) {
+                dadosAlunos = [];
+                salvarDados();
+                mostrarPainelProfessor();
+                alert("Todos os registros foram removidos!");
+            }
+        });
+        
+        document.querySelectorAll("#painelProfessor .filtro-btn").forEach(btn => {
+            btn.addEventListener("click", () => {
+                document.querySelectorAll("#painelProfessor .filtro-btn").forEach(b=>b.classList.remove("active"));
+                btn.classList.add("active");
+                filtroAtualProf = btn.dataset.filtro;
+                mostrarPainelProfessor();
+            });
+        });
+    };
+</script>
+</body>
+</html>
